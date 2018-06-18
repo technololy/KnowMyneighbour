@@ -1,0 +1,96 @@
+﻿@model IEnumerable<KnowMyneighbour.Models.Address>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section scripts {
+    <script type="text/javascript">
+
+      debugger;
+      $(document).ready(function () {
+          $("#successMessage").fadeOut(10000);
+      });
+
+    </script>
+
+}
+<br />
+<div class="row">
+    @if (TempData["success"] != null)
+{
+    if (Convert.ToBoolean(TempData["success"]) == true)
+    {
+        <p class="alert alert-success col-lg-offset-4 col-lg-4" id="successMessage">@TempData["AlertMessage"]</p>
+    }
+    else
+    {
+        <p class="alert alert-danger  col-lg-4 col-lg-offset-4" id="successMessage">@TempData["AlertMessage"]</p>
+
+    }
+}
+</div>
+<div class="row"><h3>Share/Set Where You Live, Work And Frequently Visit. Quickly Create/Search Trips based on your set locations</h3></div>
+<br />
+<p>
+    @*@Html.ActionLink("Create A New Address", "Create",null,htmlAttributes:new { @class= "glyphicon glyphicon-plus-sign fa-1x" })*@
+    <a href="@Url.Action("Create", "Addresses")" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="" data-original-title="Add New Record">
+        @*Add New?*@
+        <span style="font-size:25px;" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+        NEW
+    </a>
+</p>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            Street Name/Land Mark
+            @*@Html.DisplayNameFor(model => model.Street)*@
+        </th>
+        <th>
+            Category
+            @*@Html.DisplayNameFor(model => model.AddressType.TypeName)*@
+        </th>
+        <th>
+            City/Town
+            @*@Html.DisplayNameFor(model => model.City.City1)*@
+        </th>
+        <th>
+            State
+            @*@Html.DisplayNameFor(model => model.State.State1)*@
+        </th>
+        <th>
+            Username
+            @*@Html.DisplayNameFor(model => model.AspNetUser.Email)*@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AddressType.TypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City.City1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State.State1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
+

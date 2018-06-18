@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
+using System.Collections.Generic;
+using System;
+
 namespace KnowMyneighbour.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -16,6 +19,17 @@ namespace KnowMyneighbour.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Country { get; set; }
+        public string BirthDate { get; set; }
+        public DateTime JoinDate { get; set; }
+        public DateTime LastLoginDate { get; set; }
+        public DateTime EmailLinkDate { get; set; }
+
+
+
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -29,5 +43,6 @@ namespace KnowMyneighbour.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }

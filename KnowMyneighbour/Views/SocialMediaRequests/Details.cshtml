@@ -1,0 +1,75 @@
+﻿@model KnowMyneighbour.Models.SocialMediaRequest
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SocialMediaRequest</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SocialMedia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SocialMedia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FriendName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FriendName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FriendsEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FriendsEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateAdded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateAdded)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dateModified)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dateModified)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trip.TripAdmin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trip.TripAdmin)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.refid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,1414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="50" />
+          <Property Name="CityId" Type="int" Nullable="false" />
+          <Property Name="StateId" Type="int" />
+          <Property Name="AddressTypeId" Type="int" Nullable="false" />
+          <Property Name="ApplicationUserId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="AddressType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="varchar" MaxLength="50" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="dateModified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ProviderKey" Type="varchar" MaxLength="150" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="BirthDate" Type="varchar" MaxLength="50" />
+          <Property Name="JoinDate" Type="datetime" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="EmailLinkDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CarMake">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarMaker" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VehicleTypeId" Type="int" />
+        </EntityType>
+        <EntityType Name="CarModel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarMaker" Type="int" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StateId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MoreUserDetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HomeStreetAddress" Type="nvarchar(max)" />
+          <Property Name="HomeCityName" Type="nvarchar(max)" />
+          <Property Name="HomeLivingStateName" Type="nvarchar(max)" />
+          <Property Name="WorkStreetAddress" Type="nvarchar(max)" />
+          <Property Name="WorkCityName" Type="nvarchar(max)" />
+          <Property Name="WorkStateName" Type="nvarchar(max)" />
+          <Property Name="user_Id" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'KnowMyNeighbour.dbo.SocialMediaRequests' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SocialMediaRequests">
+          <Key>
+            <PropertyRef Name="refid" />
+          </Key>
+          <Property Name="refid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SocialMedia" Type="varchar" MaxLength="50" />
+          <Property Name="FriendName" Type="varchar" MaxLength="50" />
+          <Property Name="FriendsEmail" Type="varchar" MaxLength="250" />
+          <Property Name="dateAdded" Type="datetime" />
+          <Property Name="dateModified" Type="datetime" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="TripId" Type="int" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TripNetwork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TripsId" Type="int" />
+          <Property Name="TripMembers" Type="nvarchar" MaxLength="128" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="ActiveStatus" Type="bit" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="Paid" Type="bit" />
+          <Property Name="DatePaid" Type="datetime" />
+          <Property Name="PaymentReference" Type="varchar" MaxLength="550" />
+          <Property Name="AcceptedOrRejectedByAdmin" Type="bit" />
+          <Property Name="DateTripAdminAcceptedOrRejected" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Trips">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartLocationId" Type="int" />
+          <Property Name="DestinationId" Type="int" />
+          <Property Name="TripAdmin" Type="nvarchar" MaxLength="128" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="ActiveStatus" Type="bit" />
+          <Property Name="DateModified" Type="datetime" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Charge" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehicleType" Type="varchar" MaxLength="50" />
+          <Property Name="VehicleExample" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VehicleDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VehicleType" Type="varchar" MaxLength="50" />
+          <Property Name="Make" Type="varchar" MaxLength="50" />
+          <Property Name="Model" Type="varchar" MaxLength="50" />
+          <Property Name="year" Type="varchar" MaxLength="50" />
+          <Property Name="userId" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="VehicleRoutes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartLocation" Type="nvarchar(max)" />
+          <Property Name="DestinationLocation" Type="nvarchar(max)" />
+          <Property Name="userid" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <Association Name="FK_Address_ToAddressTypeTable">
+          <End Role="AddressType" Type="Self.AddressType" Multiplicity="1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="AddressTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_ToCityTable">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_ToStateTable">
+          <End Role="State" Type="Self.State" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_Users">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="ApplicationUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CarMake_Vehicle">
+          <End Role="Vehicle" Type="Self.Vehicle" Multiplicity="0..1" />
+          <End Role="CarMake" Type="Self.CarMake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarMake">
+              <PropertyRef Name="VehicleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CarModel_CarMake">
+          <End Role="CarMake" Type="Self.CarMake" Multiplicity="0..1" />
+          <End Role="CarModel" Type="Self.CarModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarMake">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarModel">
+              <PropertyRef Name="CarMaker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_State">
+          <End Role="State" Type="Self.State" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MoreUserDetails_dbo_AspNetUsers_user_Id">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="MoreUserDetails" Type="Self.MoreUserDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MoreUserDetails">
+              <PropertyRef Name="user_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SocialMediaRequests_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="SocialMediaRequests" Type="Self.SocialMediaRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SocialMediaRequests">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SocialMediaRequests_Trips">
+          <End Role="Trips" Type="Self.Trips" Multiplicity="0..1" />
+          <End Role="SocialMediaRequests" Type="Self.SocialMediaRequests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trips">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SocialMediaRequests">
+              <PropertyRef Name="TripId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripNetwork_AspUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="TripNetwork" Type="Self.TripNetwork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripNetwork">
+              <PropertyRef Name="TripMembers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripNetwork_Trips">
+          <End Role="Trips" Type="Self.Trips" Multiplicity="0..1" />
+          <End Role="TripNetwork" Type="Self.TripNetwork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trips">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripNetwork">
+              <PropertyRef Name="TripsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trips_City">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Trips" Type="Self.Trips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trips">
+              <PropertyRef Name="StartLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trips_City2">
+          <End Role="City" Type="Self.City" Multiplicity="0..1" />
+          <End Role="Trips" Type="Self.Trips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trips">
+              <PropertyRef Name="DestinationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trips_Users">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Trips" Type="Self.Trips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trips">
+              <PropertyRef Name="TripAdmin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleDetails_ToTable">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="VehicleDetails" Type="Self.VehicleDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleDetails">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleRoutes_ToAspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="VehicleRoutes" Type="Self.VehicleRoutes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleRoutes">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AddressType" EntityType="Self.AddressType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarMake" EntityType="Self.CarMake" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarModel" EntityType="Self.CarModel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MoreUserDetails" EntityType="Self.MoreUserDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TripNetwork" EntityType="Self.TripNetwork" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trips" EntityType="Self.Trips" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicle" EntityType="Self.Vehicle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleDetails" EntityType="Self.VehicleDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VehicleRoutes" EntityType="Self.VehicleRoutes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SocialMediaRequests" EntityType="Self.SocialMediaRequests" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SocialMediaRequests].[refid] AS [refid], 
+    [SocialMediaRequests].[SocialMedia] AS [SocialMedia], 
+    [SocialMediaRequests].[FriendName] AS [FriendName], 
+    [SocialMediaRequests].[FriendsEmail] AS [FriendsEmail], 
+    [SocialMediaRequests].[dateAdded] AS [dateAdded], 
+    [SocialMediaRequests].[dateModified] AS [dateModified], 
+    [SocialMediaRequests].[UserId] AS [UserId], 
+    [SocialMediaRequests].[TripId] AS [TripId]
+    FROM [dbo].[SocialMediaRequests] AS [SocialMediaRequests]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Address_ToAddressTypeTable" Association="Self.FK_Address_ToAddressTypeTable">
+            <End Role="AddressType" EntitySet="AddressType" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_ToCityTable" Association="Self.FK_Address_ToCityTable">
+            <End Role="City" EntitySet="City" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_ToStateTable" Association="Self.FK_Address_ToStateTable">
+            <End Role="State" EntitySet="State" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_Users" Association="Self.FK_Address_Users">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CarMake_Vehicle" Association="Self.FK_CarMake_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicle" />
+            <End Role="CarMake" EntitySet="CarMake" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CarModel_CarMake" Association="Self.FK_CarModel_CarMake">
+            <End Role="CarMake" EntitySet="CarMake" />
+            <End Role="CarModel" EntitySet="CarModel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_State" Association="Self.FK_City_State">
+            <End Role="State" EntitySet="State" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MoreUserDetails_dbo_AspNetUsers_user_Id" Association="Self.FK_dbo_MoreUserDetails_dbo_AspNetUsers_user_Id">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="MoreUserDetails" EntitySet="MoreUserDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SocialMediaRequests_AspNetUsers" Association="Self.FK_SocialMediaRequests_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="SocialMediaRequests" EntitySet="SocialMediaRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SocialMediaRequests_Trips" Association="Self.FK_SocialMediaRequests_Trips">
+            <End Role="Trips" EntitySet="Trips" />
+            <End Role="SocialMediaRequests" EntitySet="SocialMediaRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripNetwork_AspUsers" Association="Self.FK_TripNetwork_AspUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="TripNetwork" EntitySet="TripNetwork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripNetwork_Trips" Association="Self.FK_TripNetwork_Trips">
+            <End Role="Trips" EntitySet="Trips" />
+            <End Role="TripNetwork" EntitySet="TripNetwork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trips_City" Association="Self.FK_Trips_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Trips" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trips_City2" Association="Self.FK_Trips_City2">
+            <End Role="City" EntitySet="City" />
+            <End Role="Trips" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trips_Users" Association="Self.FK_Trips_Users">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Trips" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleDetails_ToTable" Association="Self.FK_VehicleDetails_ToTable">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="VehicleDetails" EntitySet="VehicleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleRoutes_ToAspNetUsers" Association="Self.FK_VehicleRoutes_ToAspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="VehicleRoutes" EntitySet="VehicleRoutes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="MoreUserDetails" Relationship="Self.FK_dbo_MoreUserDetails_dbo_AspNetUsers_user_Id" FromRole="AspNetUsers" ToRole="MoreUserDetails" />
+          <NavigationProperty Name="VehicleDetails" Relationship="Self.FK_VehicleDetails_ToTable" FromRole="AspNetUsers" ToRole="VehicleDetails" />
+          <NavigationProperty Name="VehicleRoutes" Relationship="Self.FK_VehicleRoutes_ToAspNetUsers" FromRole="AspNetUsers" ToRole="VehicleRoutes" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="TripNetworks" Relationship="Model.FK_TripNetwork_AspUsers" FromRole="AspNetUser" ToRole="TripNetwork" />
+          <NavigationProperty Name="Trips" Relationship="Model.FK_Trips_Users" FromRole="AspNetUser" ToRole="Trip" />
+          <Property Name="ProviderKey" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JoinDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="EmailLinkDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Addresses" Relationship="Model.FK_Address_Users" FromRole="AspNetUser" ToRole="Address" />
+          <NavigationProperty Name="SocialMediaRequests" Relationship="Model.FK_SocialMediaRequests_AspNetUsers" FromRole="AspNetUser" ToRole="SocialMediaRequest" />
+        </EntityType>
+        <EntityType Name="MoreUserDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HomeStreetAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HomeCityName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HomeLivingStateName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorkStreetAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorkCityName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WorkStateName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="user_Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_MoreUserDetails_dbo_AspNetUsers_user_Id" FromRole="MoreUserDetails" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="VehicleDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Make" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="year" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_VehicleDetails_ToTable" FromRole="VehicleDetails" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="VehicleRoute">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DestinationLocation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="userid" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_VehicleRoutes_ToAspNetUsers" FromRole="VehicleRoutes" ToRole="AspNetUsers" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_MoreUserDetails_dbo_AspNetUsers_user_Id">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="MoreUserDetails" Type="Self.MoreUserDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MoreUserDetails">
+              <PropertyRef Name="user_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleDetails_ToTable">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="VehicleDetails" Type="Self.VehicleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleDetails">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VehicleRoutes_ToAspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
+          <End Role="VehicleRoutes" Type="Self.VehicleRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VehicleRoutes">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+          <EntitySet Name="MoreUserDetails" EntityType="Self.MoreUserDetail" />
+          <EntitySet Name="VehicleDetails" EntityType="Self.VehicleDetail" />
+          <EntitySet Name="VehicleRoutes" EntityType="Self.VehicleRoute" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_MoreUserDetails_dbo_AspNetUsers_user_Id" Association="Self.FK_dbo_MoreUserDetails_dbo_AspNetUsers_user_Id">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="MoreUserDetails" EntitySet="MoreUserDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleDetails_ToTable" Association="Self.FK_VehicleDetails_ToTable">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="VehicleDetails" EntitySet="VehicleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VehicleRoutes_ToAspNetUsers" Association="Self.FK_VehicleRoutes_ToAspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="VehicleRoutes" EntitySet="VehicleRoutes" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Cities" EntityType="Model.City" />
+          <EntitySet Name="CarMakes" EntityType="Model.CarMake" />
+          <EntitySet Name="CarModels" EntityType="Model.CarModel" />
+          <EntitySet Name="States" EntityType="Model.State" />
+          <EntitySet Name="TripNetworks" EntityType="Model.TripNetwork" />
+          <EntitySet Name="Trips" EntityType="Model.Trip" />
+          <EntitySet Name="Vehicles" EntityType="Model.Vehicle" />
+          <AssociationSet Name="FK_TripNetwork_AspUsers" Association="Model.FK_TripNetwork_AspUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="TripNetwork" EntitySet="TripNetworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trips_Users" Association="Model.FK_Trips_Users">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Trip" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CarMake_Vehicle" Association="Model.FK_CarMake_Vehicle">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="CarMake" EntitySet="CarMakes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CarModel_CarMake" Association="Model.FK_CarModel_CarMake">
+            <End Role="CarMake" EntitySet="CarMakes" />
+            <End Role="CarModel" EntitySet="CarModels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_State" Association="Model.FK_City_State">
+            <End Role="State" EntitySet="States" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trips_City" Association="Model.FK_Trips_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Trip" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trips_City2" Association="Model.FK_Trips_City2">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Trip" EntitySet="Trips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TripNetwork_Trips" Association="Model.FK_TripNetwork_Trips">
+            <End Role="Trip" EntitySet="Trips" />
+            <End Role="TripNetwork" EntitySet="TripNetworks" />
+          </AssociationSet>
+          <EntitySet Name="AddressTypes" EntityType="Model.AddressType" />
+          <EntitySet Name="Addresses" EntityType="Model.Address" />
+          <AssociationSet Name="FK_Address_ToAddressTypeTable" Association="Model.FK_Address_ToAddressTypeTable">
+            <End Role="AddressType" EntitySet="AddressTypes" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_ToCityTable" Association="Model.FK_Address_ToCityTable">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_ToStateTable" Association="Model.FK_Address_ToStateTable">
+            <End Role="State" EntitySet="States" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_Users" Association="Model.FK_Address_Users">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <EntitySet Name="SocialMediaRequests" EntityType="Model.SocialMediaRequest" />
+          <AssociationSet Name="FK_SocialMediaRequests_AspNetUsers" Association="Model.FK_SocialMediaRequests_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="SocialMediaRequest" EntitySet="SocialMediaRequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SocialMediaRequests_Trips" Association="Model.FK_SocialMediaRequests_Trips">
+            <End Role="Trip" EntitySet="Trips" />
+            <End Role="SocialMediaRequest" EntitySet="SocialMediaRequests" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="State" Relationship="Model.FK_City_State" FromRole="City" ToRole="State" />
+          <NavigationProperty Name="Trips" Relationship="Model.FK_Trips_City" FromRole="City" ToRole="Trip" />
+          <NavigationProperty Name="Trips1" Relationship="Model.FK_Trips_City2" FromRole="City" ToRole="Trip" />
+          <NavigationProperty Name="Addresses" Relationship="Model.FK_Address_ToCityTable" FromRole="City" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="CarMake">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarMaker" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VehicleTypeId" Type="Int32" />
+          <NavigationProperty Name="Vehicle" Relationship="Model.FK_CarMake_Vehicle" FromRole="CarMake" ToRole="Vehicle" />
+          <NavigationProperty Name="CarModels" Relationship="Model.FK_CarModel_CarMake" FromRole="CarMake" ToRole="CarModel" />
+        </EntityType>
+        <EntityType Name="CarModel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarMaker" Type="Int32" />
+          <NavigationProperty Name="CarMake" Relationship="Model.FK_CarModel_CarMake" FromRole="CarModel" ToRole="CarMake" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cities" Relationship="Model.FK_City_State" FromRole="State" ToRole="City" />
+          <NavigationProperty Name="Addresses" Relationship="Model.FK_Address_ToStateTable" FromRole="State" ToRole="Address" />
+          </EntityType>
+        <EntityType Name="TripNetwork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TripsId" Type="Int32" />
+          <Property Name="TripMembers" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="ActiveStatus" Type="Boolean" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="Model.FK_TripNetwork_AspUsers" FromRole="TripNetwork" ToRole="AspNetUser" />
+          <NavigationProperty Name="Trip" Relationship="Model.FK_TripNetwork_Trips" FromRole="TripNetwork" ToRole="Trip" />
+          <Property Name="Paid" Type="Boolean" />
+          <Property Name="DatePaid" Type="DateTime" Precision="3" />
+          <Property Name="PaymentReference" Type="String" MaxLength="550" FixedLength="false" Unicode="false" />
+          <Property Name="AcceptedOrRejectedByAdmin" Type="Boolean" />
+          <Property Name="DateTripAdminAcceptedOrRejected" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Trip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartLocationId" Type="Int32" />
+          <Property Name="DestinationId" Type="Int32" />
+          <Property Name="TripAdmin" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="ActiveStatus" Type="Boolean" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AspNetUser" Relationship="Model.FK_Trips_Users" FromRole="Trip" ToRole="AspNetUser" />
+          <NavigationProperty Name="City" Relationship="Model.FK_Trips_City" FromRole="Trip" ToRole="City" />
+          <NavigationProperty Name="City1" Relationship="Model.FK_Trips_City2" FromRole="Trip" ToRole="City" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Charge" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="TripNetworks" Relationship="Model.FK_TripNetwork_Trips" FromRole="Trip" ToRole="TripNetwork" />
+          <NavigationProperty Name="SocialMediaRequests" Relationship="Model.FK_SocialMediaRequests_Trips" FromRole="Trip" ToRole="SocialMediaRequest" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VehicleType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VehicleExample" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CarMakes" Relationship="Model.FK_CarMake_Vehicle" FromRole="Vehicle" ToRole="CarMake" />
+        </EntityType>
+        <Association Name="FK_TripNetwork_AspUsers">
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="Model.TripNetwork" Role="TripNetwork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripNetwork">
+              <PropertyRef Name="TripMembers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trips_Users">
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="Model.Trip" Role="Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="TripAdmin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CarMake_Vehicle">
+          <End Type="Model.Vehicle" Role="Vehicle" Multiplicity="0..1" />
+          <End Type="Model.CarMake" Role="CarMake" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarMake">
+              <PropertyRef Name="VehicleTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CarModel_CarMake">
+          <End Type="Model.CarMake" Role="CarMake" Multiplicity="0..1" />
+          <End Type="Model.CarModel" Role="CarModel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarMake">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CarModel">
+              <PropertyRef Name="CarMaker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_State">
+          <End Type="Model.State" Role="State" Multiplicity="1" />
+          <End Type="Model.City" Role="City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trips_City">
+          <End Type="Model.City" Role="City" Multiplicity="0..1" />
+          <End Type="Model.Trip" Role="Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="StartLocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trips_City2">
+          <End Type="Model.City" Role="City" Multiplicity="0..1" />
+          <End Type="Model.Trip" Role="Trip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Trip">
+              <PropertyRef Name="DestinationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TripNetwork_Trips">
+          <End Type="Model.Trip" Role="Trip" Multiplicity="0..1" />
+          <End Type="Model.TripNetwork" Role="TripNetwork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TripNetwork">
+              <PropertyRef Name="TripsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AddressType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="dateModified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Addresses" Relationship="Model.FK_Address_ToAddressTypeTable" FromRole="AddressType" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CityId" Type="Int32" Nullable="false" />
+          <Property Name="StateId" Type="Int32" />
+          <Property Name="AddressTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ApplicationUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AddressType" Relationship="Model.FK_Address_ToAddressTypeTable" FromRole="Address" ToRole="AddressType" />
+          <NavigationProperty Name="City" Relationship="Model.FK_Address_ToCityTable" FromRole="Address" ToRole="City" />
+          <NavigationProperty Name="State" Relationship="Model.FK_Address_ToStateTable" FromRole="Address" ToRole="State" />
+          <NavigationProperty Name="AspNetUser" Relationship="Model.FK_Address_Users" FromRole="Address" ToRole="AspNetUser" />
+        </EntityType>
+        <Association Name="FK_Address_ToAddressTypeTable">
+          <End Type="Model.AddressType" Role="AddressType" Multiplicity="1" />
+          <End Type="Model.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AddressType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="AddressTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_ToCityTable">
+          <End Type="Model.City" Role="City" Multiplicity="1" />
+          <End Type="Model.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_ToStateTable">
+          <End Type="Model.State" Role="State" Multiplicity="0..1" />
+          <End Type="Model.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_Users">
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="Model.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="ApplicationUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SocialMediaRequest">
+          <Key>
+            <PropertyRef Name="refid" />
+          </Key>
+          <Property Name="refid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SocialMedia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FriendName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FriendsEmail" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="dateAdded" Type="DateTime" Precision="3" />
+          <Property Name="dateModified" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="TripId" Type="Int32" />
+          <NavigationProperty Name="AspNetUser" Relationship="Model.FK_SocialMediaRequests_AspNetUsers" FromRole="SocialMediaRequest" ToRole="AspNetUser" />
+          <NavigationProperty Name="Trip" Relationship="Model.FK_SocialMediaRequests_Trips" FromRole="SocialMediaRequest" ToRole="Trip" />
+        </EntityType>
+        <Association Name="FK_SocialMediaRequests_AspNetUsers">
+          <End Type="Model.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="Model.SocialMediaRequest" Role="SocialMediaRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SocialMediaRequest">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SocialMediaRequests_Trips">
+          <End Type="Model.Trip" Role="Trip" Multiplicity="0..1" />
+          <End Type="Model.SocialMediaRequest" Role="SocialMediaRequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Trip">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SocialMediaRequest">
+              <PropertyRef Name="TripId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="Model.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="Model.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="Model.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="Model.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Model.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="EmailLinkDate" ColumnName="EmailLinkDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MoreUserDetails">
+            <EntityTypeMapping TypeName="Model.MoreUserDetail">
+              <MappingFragment StoreEntitySet="MoreUserDetails">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="HomeStreetAddress" ColumnName="HomeStreetAddress" />
+                <ScalarProperty Name="HomeCityName" ColumnName="HomeCityName" />
+                <ScalarProperty Name="HomeLivingStateName" ColumnName="HomeLivingStateName" />
+                <ScalarProperty Name="WorkStreetAddress" ColumnName="WorkStreetAddress" />
+                <ScalarProperty Name="WorkCityName" ColumnName="WorkCityName" />
+                <ScalarProperty Name="WorkStateName" ColumnName="WorkStateName" />
+                <ScalarProperty Name="user_Id" ColumnName="user_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleDetails">
+            <EntityTypeMapping TypeName="Model.VehicleDetail">
+              <MappingFragment StoreEntitySet="VehicleDetails">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VehicleRoutes">
+            <EntityTypeMapping TypeName="Model.VehicleRoute">
+              <MappingFragment StoreEntitySet="VehicleRoutes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="StartLocation" ColumnName="StartLocation" />
+                <ScalarProperty Name="DestinationLocation" ColumnName="DestinationLocation" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="Model.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="City1" ColumnName="City" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarMakes">
+            <EntityTypeMapping TypeName="Model.CarMake">
+              <MappingFragment StoreEntitySet="CarMake">
+                <ScalarProperty Name="VehicleTypeId" ColumnName="VehicleTypeId" />
+                <ScalarProperty Name="CarMaker" ColumnName="CarMaker" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarModels">
+            <EntityTypeMapping TypeName="Model.CarModel">
+              <MappingFragment StoreEntitySet="CarModel">
+                <ScalarProperty Name="CarMaker" ColumnName="CarMaker" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="Model.State">
+              <MappingFragment StoreEntitySet="State">
+                <ScalarProperty Name="State1" ColumnName="State" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TripNetworks">
+            <EntityTypeMapping TypeName="Model.TripNetwork">
+              <MappingFragment StoreEntitySet="TripNetwork">
+                <ScalarProperty Name="DateTripAdminAcceptedOrRejected" ColumnName="DateTripAdminAcceptedOrRejected" />
+                <ScalarProperty Name="AcceptedOrRejectedByAdmin" ColumnName="AcceptedOrRejectedByAdmin" />
+                <ScalarProperty Name="PaymentReference" ColumnName="PaymentReference" />
+                <ScalarProperty Name="DatePaid" ColumnName="DatePaid" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="TripMembers" ColumnName="TripMembers" />
+                <ScalarProperty Name="TripsId" ColumnName="TripsId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trips">
+            <EntityTypeMapping TypeName="Model.Trip">
+              <MappingFragment StoreEntitySet="Trips">
+                <ScalarProperty Name="Charge" ColumnName="Charge" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+                <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="TripAdmin" ColumnName="TripAdmin" />
+                <ScalarProperty Name="DestinationId" ColumnName="DestinationId" />
+                <ScalarProperty Name="StartLocationId" ColumnName="StartLocationId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="Model.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicle">
+                <ScalarProperty Name="VehicleExample" ColumnName="VehicleExample" />
+                <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AddressTypes">
+            <EntityTypeMapping TypeName="Model.AddressType">
+              <MappingFragment StoreEntitySet="AddressType">
+                <ScalarProperty Name="dateModified" ColumnName="dateModified" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="Model.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="ApplicationUserId" ColumnName="ApplicationUserId" />
+                <ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeId" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SocialMediaRequests">
+            <EntityTypeMapping TypeName="Model.SocialMediaRequest">
+              <MappingFragment StoreEntitySet="SocialMediaRequests">
+                <ScalarProperty Name="TripId" ColumnName="TripId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="dateModified" ColumnName="dateModified" />
+                <ScalarProperty Name="dateAdded" ColumnName="dateAdded" />
+                <ScalarProperty Name="FriendsEmail" ColumnName="FriendsEmail" />
+                <ScalarProperty Name="FriendName" ColumnName="FriendName" />
+                <ScalarProperty Name="SocialMedia" ColumnName="SocialMedia" />
+                <ScalarProperty Name="refid" ColumnName="refid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

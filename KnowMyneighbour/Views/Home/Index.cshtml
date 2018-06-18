@@ -1,31 +1,130 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<body class="index-page sidebar-collapse">
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+    <div class="wrapper">
+        <div class="page-header clear-filter" filter-color="orange">
+            <div class="page-header-image" data-parallax="true" style="background-image: url('./assets/img/header.jpg');">
+            </div>
+            <div class="container">
+                <div class="content-center brand">
+                    <img class="n-logo" src="./assets/img/now-logo.png" alt="">
+                    <h1 class="h1-seo">Know My Neighbour.</h1>
+                    <h3>Share Trips. Share Services. Yours free.</h3>
+                    <div>
+                        <a href="~/Trips" class="btn btn-primary btn-round btn-lg ">Check all trips here</a>
+                    </div>
+                </div>
+               
+                @*<h6 class="category category-absolute">
+                    Designed by
+                    <a href="http://invisionapp.com/" target="_blank">
+                        <img src="./assets/img/invision-white-slim.png" class="invision-logo" />
+                    </a>. Coded by
+                    <a href="https://www.creative-tim.com" target="_blank">
+                        <img src="./assets/img/creative-tim-white-slim2.png" class="creative-tim-logo" />
+                    </a>.
+                </h6>*@
+            </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
+     
+        <footer class="footer" data-background-color="black">
+            <div class="container">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="https://www.creative-tim.com">
+                                lolade
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://presentation.creative-tim.com">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://blog.creative-tim.com">
+                                Blog
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/creativetimofficial/now-ui-kit/blob/master/LICENSE.md">
+                                MIT License
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>, Designed by
+                    <a href="#" target="_blank">Technololy</a>. Coded by
+                    <a href="#" target="_blank">lolade</a>.
+                </div>
+            </div>
+        </footer>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+
+    <!--   Core JS Files   -->
+    <script src="~/assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+    <script src="~/assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="~/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+    <script src="~/assets/js/plugins/bootstrap-switch.js"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script src="~/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+    <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
+    <script src="~/assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+    <!-- Share Library etc -->
+    <script src="~/assets/js/plugins/jquery.sharrre.js" type="text/javascript"></script>
+    <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
+    <script src="~/assets/js/now-ui-kit.js?v=1.1.0" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // the body of this function is in assets/js/now-ui-kit.js
+            nowuiKit.initSliders();
+        });
+
+        function scrollToDownload() {
+
+            if ($('.section-download').length != 0) {
+                $("html, body").animate({
+                    scrollTop: $('.section-download').offset().top
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+<!-- #region old -->
+@*<div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+        <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>
+                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                enables a clean separation of concerns and gives you full control over markup
+                for enjoyable, agile development.
+            </p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        </div>
+    </div>*@
+
+<!-- #endregion -->

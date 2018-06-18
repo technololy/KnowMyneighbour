@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using KnowMyneighbour.Models;
+using Facebook;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace KnowMyneighbour.Controllers
 {
@@ -52,7 +55,32 @@ namespace KnowMyneighbour.Controllers
             }
         }
 
-        //
+        #region Variable
+        public static string EConfUser { get; set; }
+        public static string connection = GetConnectionString("DefaultConnection");
+
+
+        public static string command = null;
+        public static string parameterName = null;
+        public static string methodName = null;
+        string codeType = null;
+
+        public static string OEmail { get; set; }
+        public static string OBirthday { get; set; }
+        public static string OFname { get; set; }
+        public static string OLname { get; set; }
+
+
+        #endregion
+
+
+        private static string GetConnectionString(string v)
+        {
+            string con = ConfigurationManager.ConnectionStrings[v].ToString();
+            return con;
+        }
+
+        //s
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -65,7 +93,7 @@ namespace KnowMyneighbour.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -152,6 +180,11 @@ namespace KnowMyneighbour.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                user.JoinDate = DateTime.Now;
+                user.LastLoginDate = DateTime.Now;
+                user.EmailLinkDate = DateTime.Now;
+                user.BirthDate = DateTime.Now.ToString("yyyy-MM-dd");
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -320,32 +353,134 @@ namespace KnowMyneighbour.Controllers
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+        public async Task<ActionResult> ExternalLoginCallback(string returnUrl = null)
         {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            string userid = null;
+            bool custEmailConf = false;
+            string custUserName = null;
+            var loginInfo = AuthenticationManager.GetExternalLoginInfoAsync().Result;
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
             }
-
-            // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
+            string userprokey = loginInfo.Login.ProviderKey;
+            userid = FindUserId(userprokey);
+            if (userid !=null)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
-                default:
-                    // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                custEmailConf = EmailConfirmationById(userid);//check if email is confirmed
+                custUserName = FindUserNameById(userid);//get username
+
             }
+            //if email is not confirmed,dont allow users to log on
+            custEmailConf = true;//since i have not implemented this, will let it go
+            if (custEmailConf==false)
+            {
+
+                EConfUser = custUserName;return RedirectToAction("EmailConfirmationFailed", "Account");
+            }
+
+            if (custUserName!=null)//if email exists, dont allow users contine
+            {
+                TempData["success"] = true;
+                TempData["AlertMessage"] = "Sorry!! That username already exists";
+                return RedirectToAction("ExternalLoginCallback", "Account");
+            }
+            else
+            {
+                // Sign in the user with this external login provider if the user already has a login
+                var result =  SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false).Result;
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        //UpdateLastLoginDate(custUserName);
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    case SignInStatus.Failure:
+                    default:
+                        // If the user does not have an account, then prompt the user to create an account
+                        ViewBag.ReturnUrl = returnUrl;
+                        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                        if (loginInfo.Login.LoginProvider=="Facebook")
+                        {
+                            var identity = AuthenticationManager.GetExternalIdentity(DefaultAuthenticationTypes.ExternalCookie);
+                            var access_token = identity.FindFirstValue("FacebookAccessToken");
+                            //var access_token = identity.Claims.FirstOrDefault("FscebookAccessToken");
+                            var fb = new FacebookClient(access_token);
+                            dynamic uEmail = fb.Get("/me?fields=email");
+                            dynamic uBirthDate = fb.Get("/me?fields=birthday");
+                            dynamic uFname = fb.Get("/me?fields=first_name");
+                            dynamic uLname = fb.Get("/me?fields=last_name");
+                            OEmail = uEmail.email;
+                            OBirthday = uBirthDate.birthday;
+                            OFname = uFname.first_name;
+                            OLname = uLname.last_name;
+                        }
+
+                        else if (loginInfo.Login.LoginProvider == "Google")
+                        {
+                            OEmail = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value;
+                            OFname = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname").Value;
+                            OLname = loginInfo.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname").Value;
+
+                        }
+                        else
+                        {
+                            OEmail = null;
+                            OBirthday = null;
+                            OFname = null;
+                            OLname = null;
+                        }
+                        //return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                        return View("ExternalLoginConfirmation");
+                }
+            }
+            
         }
+
+        ////
+        //// POST: /Account/ExternalLoginConfirmation
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        return RedirectToAction("Index", "Manage");
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Get the information about the user from the external login provider
+        //        var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+        //        if (info == null)
+        //        {
+        //            return View("ExternalLoginFailure");
+        //        }
+        //        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+        //        var result = await UserManager.CreateAsync(user);
+        //        if (result.Succeeded)
+        //        {
+        //            result = await UserManager.AddLoginAsync(user.Id, info.Login);
+        //            if (result.Succeeded)
+        //            {
+        //                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+        //                return RedirectToLocal(returnUrl);
+        //            }
+        //        }
+        //        AddErrors(result);
+        //    }
+
+        //    ViewBag.ReturnUrl = returnUrl;
+        //    return View(model);
+        //}
+
+        //
+        // POST: /Account/LogOff
+
 
         //
         // POST: /Account/ExternalLoginConfirmation
@@ -359,34 +494,62 @@ namespace KnowMyneighbour.Controllers
                 return RedirectToAction("Index", "Manage");
             }
 
+            ModelState.Clear();
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+                var info = AuthenticationManager.GetExternalLoginInfoAsync().Result;
                 if (info == null)
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
+                var custEmail = FindEmail(model.Email);
+                var custUserName = FindUserName(model.ExtUsername);
+
+                var user = new ApplicationUser { UserName = model.ExtUsername, Email = model.Email,FirstName=model.ExtFirstName,LastName=model.ExtLastName,Country=model.ExtCountry,LastLoginDate=DateTime.Now,BirthDate=model.ExtBirthDate,JoinDate= DateTime.Now,EmailLinkDate=DateTime.Now};
+                if (custEmail==null && custUserName==null)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    var result = await UserManager.CreateAsync(user);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+                        result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                        if (result.Succeeded)
+                        {
+                            codeType = "EmailConfirmation";
+                            //await SendEmail("ConfirmEmail", "Account", user, model.Email, "WelcomeEmail", "Confirm your Account");
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                            return RedirectToAction("Index","Home");
+                            //return RedirectToAction("ConfirmationEmailSent", "Account");
+                        }
+                    }
+                    AddErrors(result);
+                }
+                else
+                {
+                    if (custEmail!=null)
+                    {
+                        ModelState.AddModelError("", "Email is already registered");
+
+                    }
+
+                    if (custUserName != null)
+                    {
+                        ModelState.AddModelError("", "Username "+model.ExtUsername.ToLower()+" is already taken");
+
                     }
                 }
-                AddErrors(result);
+                
             }
 
             ViewBag.ReturnUrl = returnUrl;
-            return View(model);
+            return View("ExternalLoginConfirmation");
         }
 
-        //
-        // POST: /Account/LogOff
+        private Task SendEmail(string v1, string v2, ApplicationUser user, string email, string v3, string v4)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -480,6 +643,93 @@ namespace KnowMyneighbour.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
+
+        public static string FindUserName(string username)
+        {
+            command = "SELECT UserName As UserName FROM AspNetUsers WHERE UserName=@username";
+            parameterName = "@username";
+            methodName = "FindUserName";
+            return ReturnString(username);
+
+        }
+
+        public static string FindEmail(string email)
+        {
+            command = "SELECT Email As Email FROM AspNetUsers WHERE Email=@Email";
+            parameterName = "@Email";
+            methodName = "FindEmail";
+            return ReturnString(email);
+
+        }
+
+        public static string FindUserId(string userprokey)
+        {
+            command = "SELECT UserName As UserName FROM AspNetUsers WHERE ProviderKey=@ProviderKey";
+            parameterName = "@ProviderKey";
+            methodName = "FindUserId";
+            return ReturnString(userprokey);
+        }
+
+        public static string FindUserNameById(string userid)
+        {
+            command = "SELECT UserName As  UserName FROM AspNetUsers WHERE Id=@Id";
+            parameterName = "@Id";
+            methodName = "FindUserNameById";
+            return ReturnString(userid);
+        }
+
+
+        public static string ReturnString(string str)
+        {
+            string strOut = null;
+            using (SqlConnection myCon = new SqlConnection(connection))
+            using (SqlCommand cmd = new SqlCommand(command,myCon))
+            {
+                cmd.Parameters.AddWithValue(parameterName, str);
+                myCon.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        if (reader.Read())
+                        {
+                            if (methodName=="FindEmail")
+                            {
+                                strOut = reader["Email"].ToString();
+                            }
+                            else if (methodName=="FindUserName" || methodName=="FindUserNameById")
+                            {
+                                strOut = reader["UserName"].ToString();
+                            }
+                            else if (methodName=="FindUserId")
+                            {
+                                strOut = reader["UserId"].ToString();
+                            }
+                        }
+                        myCon.Close();
+                    }
+                    return strOut;
+                }
+            }
+        }
+
+
+
+        public bool EmailConfirmation(string email)
+        {
+            return true;
+        }
+
+
+
+
+        public bool EmailConfirmationById(string userid)
+        {
+            return true;
+        }
+
+
+
         #endregion
     }
 }

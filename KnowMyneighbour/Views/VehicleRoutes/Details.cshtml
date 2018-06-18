@@ -1,0 +1,43 @@
+﻿@model KnowMyneighbour.Models.VehicleRoute
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VehicleRoute</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StartLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartLocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DestinationLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DestinationLocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

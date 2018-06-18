@@ -1,0 +1,284 @@
+﻿@model IEnumerable<KnowMyneighbour.Models.TripNetwork>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@*<script src="https://js.paystack.co/v1/inline.js"></script>
+<div id="paystackEmbedContainer"></div>
+
+<script>
+  PaystackPop.setup({
+   key: 'pk_test_221221122121',
+   email: 'customer@email.com',
+   amount: 10000,
+   container: 'paystackEmbedContainer',
+   callback: function(response){
+        alert('successfully subscribed. transaction ref is ' + response.reference);
+    },
+  });
+</script>*@
+
+
+@*@section scripts {*@
+    <script type="text/javascript">
+
+        debugger;
+        $(document).ready(function () {
+            $("#successMessage").fadeOut(5000);
+        });
+
+    </script>
+
+    <script>
+        function Test()
+        {
+             var url = '@Url.Action("CheckPaymentResponse", "TripNetworks")';
+                    debugger;
+                    var data = { tripId: @ViewBag.CurrentTripNetworkID, reference: "Test" };
+                    $.post(url, data, function(result) {
+                        // TODO: do something with the response from the controller action
+                        window.location.reload();
+                    });
+        }
+    </script>
+
+    <script>
+        function payWithPaystack() {
+            var handler = PaystackPop.setup({
+                key: 'pk_test_f74891fbccf7639400ac646dbdc3fef410f5fc25',
+                email: 'loladeking@gmail.com',
+                amount: @Convert.ToDecimal(ViewBag.ChargePerTrip)*100,
+                //ref: 'KMN' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Mobile Number",
+                            variable_name: "mobile_number",
+                            value: "+2347036605597"
+                        }
+                    ]
+                },
+                callback: function (response) {
+                    var url = '@Url.Action("CheckPaymentResponse", "TripNetworks")';
+                    debugger;
+                    var data = { tripId: @ViewBag.CurrentTripNetworkID, reference: response.reference };
+                    $.post(url, data, function (result) {
+                        // TODO: do something with the response from the controller action
+
+                        window.location.reload();
+
+                    });
+                    //alert('success. transaction ref is ' + response.reference);
+                },
+                onClose: function () {
+                    alert('window closed');
+                }
+            });
+            handler.openIframe();
+        }
+    </script>
+
+@*}*@
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<br />
+<br />
+<div class="#typography-line">
+
+    <blockquote>
+        <p class="blockquote blockquote-reverse">
+            Here You get to see members of this Trip Network. You need to accept or reject their request to join your trip
+            <br>
+            
+                <span class="badge badge-success">Trip Admin:</span>@ViewBag.TripAdminName
+           
+            <br>
+
+        </p>
+    </blockquote>
+</div>
+
+<form>
+    <div class="row">
+        @*<div class="col-md-3">
+            <script src="https://js.paystack.co/v1/inline.js"></script>
+            <a href="@Url.Action("RequestToJoin", "TripNetworks",new { id = ViewBag.CurrentTripNetworkID })" class=" form-control btn btn-default" data-toggle="tooltip" data-placement="right" title="" onclick="payWithPaystack()" data-original-title="Add New Record">
+
+                <span style="font-size:15px;" class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                PAY TO JOIN THIS NETWORK
+            </a>
+        </div>*@
+
+        @if (Convert.ToBoolean(ViewBag.DisablePayButtonCosUserHasPaid))
+        {
+            <div class="col-md-3">
+                <a class="btn btn-success disabled"  onclick="Test()">
+                    <script src="https://js.paystack.co/v1/inline.js"></script>
+                    <span style="font-size:15px;"  class="glyphicon glyphicon-check" aria-hidden="true"></span>
+                    @*<button type="button" class="btn btn-default" onclick="payWithPaystack()"> Pay to Join </button>*@
+                    YOU HAVE PAID ALREADY
+                </a>
+
+
+            </div>
+        }
+        else if (Convert.ToBoolean(ViewBag.DisablePayButtonCosUserIsAnAdmin))
+        {
+            <div class="col-md-3">
+                <a href="@Url.Action("inviteSocialMediaFriends","SocialMediaRequests",new { id = ViewBag.CurrentTripNetworkID })" class="form-control btn btn-default">
+                   
+                    
+                    @*<button type="button" class="btn btn-default" onclick="payWithPaystack()"> Pay to Join </button>*@
+                    INVITE SOCIAL MEDIA FRIENDS TO<br />PAY YOU AND JOIN THIS TRIP
+                </a>
+
+
+            </div>
+        }
+        else
+        {
+            <div class="col-md-3">
+                <a class="form-control btn btn-default" onclick="payWithPaystack()">
+                    <script src="https://js.paystack.co/v1/inline.js"></script>
+                    <span style="font-size:15px;" class="arrows-1_refresh-69" aria-hidden="true"></span>
+                    @*<button type="button" class="btn btn-default" onclick="payWithPaystack()"> Pay to Join </button>*@
+                    PAY TO JOIN THIS NETWORK
+                </a>
+
+
+            </div>
+        }
+
+       
+        <div class="col-md-3">
+            <a href="@Url.Action("Delete", "TripNetworks",new { id = ViewBag.CurrentTripNetworkID })" class=" form-control btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="This removes you from this network">
+
+                <span style="font-size:15px;" class="now-ui-icons ui-1_simple-remove" aria-hidden="true"></span>
+                LEAVE THIS NETWORK
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action("Index", "Trips")" class=" form-control btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="This button functions like your browser back button">
+
+                <span style="font-size:15px;" class="now-ui-icons arrows-1_refresh-69" aria-hidden="true"></span>
+                GO BACK
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action("Index", "Trips")" class=" form-control btn btn-info" data-toggle="tooltip" data-placement="right" title="" data-original-title="Add New Record">
+                <span style="font-size:15px;" class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+               COMMENTS/ISSUES/REPORT?
+            </a>
+        </div>
+    </div>
+</form>
+<br />
+<table class="table table-responsive">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.TripsId)*@
+            ID
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DateAdded)*@
+            Date Added
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.ActiveStatus)*@
+            Status
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.DateModified)*@
+            Date Modified
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.AspNetUser.Email)*@
+            Members
+        </th>
+        <th>
+            Payment Status
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TripsId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateAdded)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActiveStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateModified)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.AspNetUser.Email)*@
+            @Html.ActionLink(Html.DisplayFor(modelItem => item.AspNetUser.Email).ToString(), "Details", "MoreUserDetails", new { id=item.Id},null)
+        </td>
+      
+            @if (Convert.ToBoolean(item.Paid))
+            {
+                <td>Paid <br /> @Html.DisplayFor(modelItem=>item.DatePaid)</td>
+            }
+            else
+            {
+                <td>Not Paid</td>
+            }
+            @*@Html.DisplayFor(modelItem => item.Paid)*@
+       
+      @if (Convert.ToBoolean(item.AcceptedOrRejectedByAdmin))
+      {
+          <td>
+              Great!! Trip Admin says you can ride along.<br />Meet at the PickUp Spot<br />Trip Admin will only be paid after trip ends
+          </td>
+      }
+      else if (string.IsNullOrEmpty(Convert.ToString(item.AcceptedOrRejectedByAdmin)) && Convert.ToBoolean(ViewBag.DisablePayButtonCosUserIsAnAdmin) && Convert.ToBoolean(item.Paid))
+      {
+        <td>
+            @Html.ActionLink("Accept Follower's Request To Join this Trip", "AcceptRequest", new { id = item.Id, tripsId = item.TripsId }) |<br />
+            @Html.ActionLink("Reject Follower's Request To Join this Trip ", "RejectRequest", new { id = item.Id, tripsId = item.TripsId })
+        </td>
+      }
+      else if (string.IsNullOrEmpty(Convert.ToString(item.AcceptedOrRejectedByAdmin)) && Convert.ToBoolean(item.Paid))
+      {
+        <td>
+            Please hold while the Trip Admin is processing this paid request
+        </td>
+      }
+      else if (!Convert.ToBoolean(item.AcceptedOrRejectedByAdmin))
+      {
+        <td>
+            This trip network is probably full.<br /> Go back to Trips to join another one.<br /> This payment will be credited back to you<br /> by close of business today
+        </td>
+      }
+      else if (Convert.ToBoolean(ViewBag.DisablePayButtonCosUserIsAnAdmin))
+      {
+        <td>
+            @Html.ActionLink("Accept Follower's Request To Join this Trip", "AcceptRequest", new { id = item.Id, tripsId = item.TripsId }) |<br />
+            @Html.ActionLink("Reject Follower's Request To Join this Trip ", "RejectRequest", new { id = item.Id, tripsId = item.TripsId })
+        </td>
+      }
+      else
+      {
+          <td>
+              @Html.ActionLink("Details", "Details", new { id = item.Id })
+          </td>
+      }
+
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>*@
+    </tr>
+}
+
+</table>

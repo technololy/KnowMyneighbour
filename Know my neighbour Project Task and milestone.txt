@@ -1,0 +1,5 @@
+1. MoreUserDetails: 
+	a. Change the text fields like street address, street landmark to be dropdown reding from the database 
+	b. Add a dropdown to signify whether its home or work or others. The Value will be a column in the database too
+
+2. 

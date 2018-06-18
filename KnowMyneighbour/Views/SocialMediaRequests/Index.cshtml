@@ -1,0 +1,100 @@
+﻿@model IEnumerable<KnowMyneighbour.Models.SocialMediaRequest>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SocialMedia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FriendName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FriendsEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateAdded)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateModified)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Trip.TripAdmin)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SocialMedia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FriendName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FriendsEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateAdded)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateModified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Trip.TripAdmin)
+        </td>
+        <td>
+            <a href="#pablo"  data-toggle="modal" data-target="#myModal">
+                Click To Invite This Friend
+                </a>
+             
+
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.refid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.refid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.refid })*@
+</td>
+    </tr>
+}
+
+</table>
+
+        <!-- Sart Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header justify-content-center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="now-ui-icons ui-1_simple-remove"></i>
+                </button>
+                <h4 class="title title-up">EMAIL INVITE</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Hi there Damilola, this is lolade. I am driving from Okota to CMS tomorrow 21 January 2017. Let's share this trip together. Click on this link, pay 200 naira and meet me at the pick up LandMark, Church Roundabout. Destination LandMark is CMS. Join my trip network so we go together.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default">Send Invite</button>
+               
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  End Modal -->

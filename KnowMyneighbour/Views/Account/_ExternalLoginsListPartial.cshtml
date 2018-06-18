@@ -1,7 +1,7 @@
 ﻿@model KnowMyneighbour.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<h4>Use another service to log in.</h4>
+@*<h4>Use another service to log in.</h4>*@
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
@@ -16,13 +16,33 @@
     else {
         using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
             @Html.AntiForgeryToken()
-            <div id="socialLoginList">
-                <p>
-                    @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
-                    }
-                </p>
-            </div>
+            @*<div id="socialLoginList" class="row">*@
+            <p>
+               
+                @foreach (AuthenticationDescription p in loginProviders)
+                {
+                    //string colo = string.Empty;
+
+                    //if (p.AuthenticationType.ToLower()=="google")
+                    //{
+                    //    colo = "\"\" btn btn-danger btn-round btn-lg\"\"";
+                    //}
+                    //else if (p.AuthenticationType.ToLower() == "facebook")
+                    //{
+                    //    colo = "\"\"btn btn-info btn-round btn-lg\"\"";
+
+                    //}
+                    //else
+                    //{
+                    //    colo = "\"\"btn btn-default btn-round btn-lg\"\"";
+
+                    //}
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-info btn-round btn-lg" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">Sign in with @p.AuthenticationType</button>
+                    </div>
+                }
+            </p>
+            @*</div>*@
         }
     }
 }

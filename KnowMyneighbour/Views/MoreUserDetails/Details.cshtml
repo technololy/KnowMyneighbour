@@ -1,0 +1,75 @@
+﻿@model KnowMyneighbour.Models.MoreUserDetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MoreUserDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HomeStreetAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeStreetAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HomeCityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeCityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HomeLivingStateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HomeLivingStateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkStreetAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkStreetAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkCityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkCityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkStateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkStateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,224 @@
+﻿@model IEnumerable<KnowMyneighbour.Models.Trip>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script type="text/javascript">
+
+    debugger;
+    $(document).ready(function () {
+        $("#successMessage").fadeOut(5000);
+    });
+
+</script>
+
+
+<script>
+    function payWithPaystack() {
+        var handler = PaystackPop.setup({
+            key: 'pk_test_f74891fbccf7639400ac646dbdc3fef410f5fc25',
+            email: 'loladeking@gmail.com',
+            amount: 10000,
+            ref: '' + Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+            metadata: {
+                custom_fields: [
+                    {
+                        display_name: "Mobile Number",
+                        variable_name: "mobile_number",
+                        value: "+2347036605597"
+                    }
+                ]
+            },
+            callback: function (response) {
+                alert('success. transaction ref is ' + response.reference);
+            },
+            onClose: function () {
+                alert('window closed');
+            }
+        });
+        handler.openIframe();
+    }
+</script>
+
+
+
+<br />
+<br />
+@*<form>
+        <script src="https://js.paystack.co/v1/inline.js"></script>
+        <button type="button" class="btn btn-default" onclick="payWithPaystack()"> Pay </button>
+    </form>*@
+
+@if (TempData["success"] != null)
+{
+    if (Convert.ToBoolean(TempData["success"]) == true)
+    {
+        <p class="alert alert-success col-lg-4" id="successMessage">@TempData["AlertMessage"]</p>
+    }
+    else
+    {
+        <p class="alert alert-danger col-lg-4" id="successMessage">@TempData["AlertMessage"]</p>
+
+    }
+}
+
+
+
+        @*<h3>Search For Trips Here Using the PickUp and DropOff Location. Each Trip makes a Trip Network. View Trip Networks to see the people that make up the trip</h3>*@
+        <div class="typography-line">
+
+            <blockquote>
+                <p class="blockquote blockquote-primary">
+                    "Search For Trips Here Using the PickUp and DropOff Location. Each Trip makes a Trip Network. View Trip Networks to see the people that make up the trip"
+                    <br>
+                    <br>
+                    <small>
+                        - CEO, Know My Neighbour
+                    </small>
+                </p>
+            </blockquote>
+        </div>
+
+
+        @using (Html.BeginForm("Search", "Trips", FormMethod.Post))
+        {
+            <div class="row ">
+                <div class="col-md-3">
+                    <h4> .</h4> @*<input id="Submit1" class="form-control btn btn-default" type="submit" value="Find Trips" />*@
+                    <a href="@Url.Action("Create", "Trips")" class=" form-control btn btn-info" data-toggle="tooltip" data-placement="right" title="" data-original-title="Add New Record">
+
+                        <span style="font-size:15px;" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                        NEW TRIP
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <h4> PickUp Where</h4> <div>@Html.DropDownList("StartLocationId", null, htmlAttributes: new { @class = "form-control" }) </div>
+                </div>
+                <div class="col-md-3">
+                    <h4> DropOff Where</h4> <div>@Html.DropDownList("DestinationId", null, htmlAttributes: new { @class = "form-control" }) </div>
+                </div>
+                <div class="col-md-3">
+                    <h4> .</h4> <input id="Submit1" class="form-control btn btn-default" type="submit" value="Find Trips" />
+                </div>
+
+            </div>
+
+            <br />
+
+
+
+        }
+
+        @*<p>
+                @Html.ActionLink("Create New Trip", "Create")*
+                <a href="@Url.Action("Create", "Trips")" class="btn btn-success" data-toggle="tooltip" data-placement="right" title="" data-original-title="Add New Record">
+                    @*Add New?
+                    <span style="font-size:25px;" class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                    NEW TRIP
+                </a>
+            </p>*@
+
+
+
+        <table class="table table-responsive">
+            <tr>
+                <th style="word-wrap:hyphenate">
+                    Owner
+                    @*@Html.DisplayNameFor(model => model.AspNetUser.Email)*@
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.City.City1)*@
+                    PickUp<br /> Spot
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.City1.City1)*@
+                    DropOff<br /> Spot
+                </th>
+                <th>
+                    Each Trip Member<br /> Pays (Naira)
+                </th>
+                <th>
+                    Date<br /> Added
+                    @*@Html.DisplayNameFor(model => model.DateAdded)*@
+                </th>
+
+
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="word-wrap:hyphenate" width="1px">
+                        @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City.City1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City1.City1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Charge)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateAdded)
+                    </td>
+
+
+                    <td class="nav-item dropdown">
+
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="#">Join Trip Network</a>
+                            
+                            <a class="dropdown-item" href="#" onclick="location.href='@Url.Action("IndexById","TripNetworks", new { id = item.Id })'">View Trip Network</a>
+
+                            @if (User.IsInRole("admin") || User.Identity.Name == item.AspNetUser.Email)
+                            {
+                                <a class="dropdown-item" href="@Url.Action("inviteSocialMediaFriends","SocialMediaRequests",new { id = item.Id })">Invite your guys</a>
+                                <a class="dropdown-item" href="#" onclick="location.href='@Url.Action("Details", new { id = item.Id })'">Details</a>
+                                <a class="dropdown-item" href="#" onclick="location.href='@Url.Action("Edit", new { id = item.Id })'">Edit</a>
+                                <a class="dropdown-item" href="#" onclick="location.href='@Url.Action("Delete", new { id = item.Id })'">Delete</a>
+
+                               
+                            }
+                          
+
+                        </div>
+
+                    </td>
+
+
+                    @*<td>
+                        @Html.ActionLink("Join/View Trip Network", "IndexById", "TripNetworks", new { id = item.Id }, null)
+                    </td>
+                    @if (item.AspNetUser.Email == null)
+                    {
+                        item.AspNetUser.Email = "error";
+
+                    }
+
+                    @if (User.IsInRole("admin") || User.Identity.Name == item.AspNetUser.Email)
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
+                        </td>
+
+                    }*@
+
+
+
+
+                </tr>
+            }
+
+        </table>

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<KnowMyneighbour.Models.MoreUserDetail>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeStreetAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeCityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeLivingStateName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkStreetAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkCityName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkStateName)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeStreetAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeCityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeLivingStateName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkStreetAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkCityName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkStateName)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

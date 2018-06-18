@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using KnowMyneighbour.Models;
+using Microsoft.Owin.Security.Facebook;
+using System.Configuration;
 
 namespace KnowMyneighbour
 {
@@ -58,11 +60,58 @@ namespace KnowMyneighbour
             //   appId: "",
             //   appSecret: "");
 
+            #region facebookAuth
+            var facebookauthenticationoptions = new FacebookAuthenticationOptions()
+            {
+                AppId = ConfigurationManager.AppSettings["fbU"],
+                AppSecret = ConfigurationManager.AppSettings["fbP"],
+                Provider = new FacebookAuthenticationProvider()
+                {
+                    OnAuthenticated = async context => 
+                    {
+                        context.Identity.AddClaim(new System.Security.Claims.Claim("FacebookAccessToken", context.AccessToken));
+                    }
+                }
+            };
+            facebookauthenticationoptions.Scope.Add("public_profile");
+            facebookauthenticationoptions.Scope.Add("email");
+            facebookauthenticationoptions.Scope.Add("user_birthday");
+            app.UseFacebookAuthentication(facebookauthenticationoptions);
+            #endregion
+
+
+
+
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+            #region GoogleAuthentication
+            var googleAuthenticationOptions = new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = ConfigurationManager.AppSettings["goU"],
+                ClientSecret = ConfigurationManager.AppSettings["goP"],
+                Provider = new GoogleOAuth2AuthenticationProvider()
+                {
+                    OnAuthenticated = async context =>
+                      {
+                          context.Identity.AddClaim(new System.Security.Claims.Claim("GoogleAccessToken", context.AccessToken));
+                          foreach (var claim in context.User)
+                          {
+                              var claimtype = string.Format("urn:google:{0}", claim.Key);
+                              string claimValue = claim.Value.ToString();
+                              if (!context.Identity.HasClaim(claimtype, claimValue))
+                              {
+                                  context.Identity.AddClaim(new System.Security.Claims.Claim(claimtype, claimValue, "XmlSchemaString", "Google"));
+                              }
+                          }
+                      }
+                }
+            };
+            googleAuthenticationOptions.Scope.Add("https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email");
+            app.UseGoogleAuthentication(googleAuthenticationOptions); 
+            #endregion
         }
     }
 }

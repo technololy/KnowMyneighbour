@@ -6,8 +6,35 @@ namespace KnowMyneighbour.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
+        //[StringLength(50, ErrorMessage="The {0} must be at least {2} characters long. ", MinimumLength=5)]
+        //[RegularExpression("^([a-zA-Z0-9]{5,20})$",ErrorMessage ="The {0} must contain only alphanumeric characters")]
+        [Display(Name ="Username")]
+        public string ExtUsername { get; set; }
+
+        [Required]
+        [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]       
+        [Display(Name = "First Name")]
+        public string ExtFirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string ExtLastName { get; set; }
+
+        [Required]
+        [Display(Name = "Country")]
+        public string ExtCountry { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "BirthDate (MM/dd/yyyy)")]
+        public string ExtBirthDate { get; set; }
+
+
+
     }
 
     public class ExternalLoginListViewModel
