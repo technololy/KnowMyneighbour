@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using KnowMyneighbour.Magic;
+using KnowMyneighbour.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using KnowMyneighbour.Models;
-using Microsoft.AspNet.Identity;
-using KnowMyneighbour.Magic;
-using PayStack.Net;
-using System.Configuration;
 
 namespace KnowMyneighbour.Controllers
 {
     public class TripNetworksController : Controller
     {
         private Entities db = new Entities();
-        
+
         // GET: TripNetworks
         public ActionResult Index()
         {
-          
+
             var tripNetworks = db.TripNetworks.Include(t => t.AspNetUser);
             //TempData["tripAdmin"] = tripNetworks
             var TripAdmin = db.TripNetworks.Select(t => t.Trip.TripAdmin).FirstOrDefault();
@@ -35,11 +31,11 @@ namespace KnowMyneighbour.Controllers
         public ActionResult IndexById(int? id)
         {
             //var tripNetworks = db.TripNetworks.Include(t => t.AspNetUser);
-            var tripNetworks = db.TripNetworks.Where(t => t.TripsId==id);
+            var tripNetworks = db.TripNetworks.Where(t => t.TripsId == id);
             //TempData["tripAdmin"] = tripNetworks
 
             //extract some key columns from the model so this columns can bbe displayed to the user
-            var TripAdminID = db.Trips.Where(t => t.Id==id).Select(t=>t.TripAdmin).FirstOrDefault();
+            var TripAdminID = db.Trips.Where(t => t.Id == id).Select(t => t.TripAdmin).FirstOrDefault();
             ViewBag.TripAdmin = TripAdminID;
             var TripAdminName = db.AspNetUsers.Where(t => t.Id == TripAdminID).Select(t => t.Email).FirstOrDefault();
             ViewBag.TripAdminName = TripAdminName;
@@ -51,22 +47,22 @@ namespace KnowMyneighbour.Controllers
             ViewBag.CurrentTripNetworkID = tripsNetworkID;
 
             //function to disable pay button
-            CheckIfPayButtonShouldBeDisabled(currentUser,TripAdminID,tripsNetworkID);
-            
-            return View("Index",tripNetworks.ToList());
+            CheckIfPayButtonShouldBeDisabled(currentUser, TripAdminID, tripsNetworkID);
+
+            return View("Index", tripNetworks.ToList());
         }
         public ActionResult GoToUser(int? id)
         {
-           return RedirectToAction("aa");
+            return RedirectToAction("aa");
         }
 
-        public void CheckIfPayButtonShouldBeDisabled(string currentUser, string tripAdmin,int? tripNetworkID)
+        public void CheckIfPayButtonShouldBeDisabled(string currentUser, string tripAdmin, int? tripNetworkID)
         {
-            if (BLL.hasCurrentUserHasPaidForThisNetwork(currentUser,tripNetworkID))
+            if (BLL.hasCurrentUserHasPaidForThisNetwork(currentUser, tripNetworkID))
             {
                 ViewBag.DisablePayButtonCosUserHasPaid = true;
             }
-            if (BLL.IsCurrentUserTripAdmin(currentUser,tripAdmin))
+            if (BLL.IsCurrentUserTripAdmin(currentUser, tripAdmin))
             {
                 ViewBag.DisablePayButtonCosUserIsAnAdmin = true;
 
@@ -76,13 +72,13 @@ namespace KnowMyneighbour.Controllers
         public ActionResult RejectRequest(int? id, int tripsId)
         {
             BLL.RejectRequest(id);
-            return RedirectToAction("IndexById",new { id=tripsId});
+            return RedirectToAction("IndexById", new { id = tripsId });
         }
 
         public ActionResult AcceptRequest(int? id, int tripsId)
         {
             BLL.AcceptRequest(id);
-            return RedirectToAction("IndexById",new { id=tripsId});
+            return RedirectToAction("IndexById", new { id = tripsId });
         }
 
         private bool CurrentUserHasPaid()
@@ -112,7 +108,7 @@ namespace KnowMyneighbour.Controllers
             return View();
         }
 
-        public ActionResult CheckPaymentResponse( string tripId, string reference)
+        public ActionResult CheckPaymentResponse(string tripId, string reference)
         {
 
             string a = tripId;
@@ -120,7 +116,7 @@ namespace KnowMyneighbour.Controllers
             if (!string.IsNullOrEmpty(reference))
             {
                 //RequestToJoin(Convert.ToInt32(tripId));
-                return RedirectToAction("RequestToJoin","TripNetworks", new { id = Convert.ToInt32(tripId),payRef = reference });
+                return RedirectToAction("RequestToJoin", "TripNetworks", new { id = Convert.ToInt32(tripId), payRef = reference });
             }
             else
             {
@@ -134,25 +130,25 @@ namespace KnowMyneighbour.Controllers
         // GET: TripNetworks/Create
         public ActionResult RequestToJoin(int? id, string payRef)
         {
-  //          var testOrLiveSecret = ConfigurationManager.AppSettings["PayStackSecret"];
-  //          var api = new PayStackApi(testOrLiveSecret);
-  //          // Initializing a transaction
-  //          var response = api.Transactions.Initialize("loladeking@gmail.com", 5000000);
-  //          if (response.Status)
-  //          {
+            //          var testOrLiveSecret = ConfigurationManager.AppSettings["PayStackSecret"];
+            //          var api = new PayStackApi(testOrLiveSecret);
+            //          // Initializing a transaction
+            //          var response = api.Transactions.Initialize("loladeking@gmail.com", 5000000);
+            //          if (response.Status)
+            //          {
 
-  //          }
-  //// use response.Data
-  //          else
-  //          {
+            //          }
+            //// use response.Data
+            //          else
+            //          {
 
-  //          }
-                // show response.Message
+            //          }
+            // show response.Message
 
 
 
             string currentUser = User.Identity.GetUserId();
-            TripNetwork tripNetwork = new TripNetwork() { TripsId=id,TripMembers=currentUser,PaymentReference=payRef,DatePaid=DateTime.Now,Paid=true};
+            TripNetwork tripNetwork = new TripNetwork() { TripsId = id, TripMembers = currentUser, PaymentReference = payRef, DatePaid = DateTime.Now, Paid = true };
             DAL.TripNetwk dt = new DAL.TripNetwk();
             var returnedElement = dt.CreateTripNetwork(tripNetwork);
             //var tripnetworkbyId = db.TripNetworks.Where(y => y.TripsId == id);
@@ -173,7 +169,7 @@ namespace KnowMyneighbour.Controllers
                 string currentUser = User.Identity.GetUserId();
                 tripNetwork.TripMembers = currentUser;
                 DAL.TripNetwk dt = new DAL.TripNetwk();
-               TempData["AlertMessage"]= dt.CreateTripNetwork(tripNetwork);
+                TempData["AlertMessage"] = dt.CreateTripNetwork(tripNetwork);
                 //db.TripNetworks.Add(tripNetwork);
                 //db.SaveChanges();
                 return RedirectToAction("Index");
